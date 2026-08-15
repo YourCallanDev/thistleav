@@ -6,7 +6,7 @@
     "categoryLabel": "Cables",
     "price": 1.5,
     "stock": null,
-    "image": "assets/kit/cables/1-4-jack.png",
+    "image": "assets/kit/cables/1_4-jack.jpg",
     "configurable": true,
     "description": "Flexible jack/AUX cabling for audio connections.",
     "notes": "Unlimited stock. Select the required length and quantity."
@@ -18,7 +18,7 @@
     "categoryLabel": "Cables",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/cables/xlr-snake.png",
+    "image": "assets/kit/cables/xlr-snake.jpg",
     "configurable": false,
     "description": "8-channel XLR multicore snake for compact stage and FOH runs.",
     "notes": ""
@@ -30,7 +30,7 @@
     "categoryLabel": "Cables",
     "price": 1.5,
     "stock": null,
-    "image": "assets/kit/cables/xlr-cable.png",
+    "image": "assets/kit/cables/xlr-cable.jpg",
     "configurable": true,
     "description": "Standard XLR audio cable available in a range of lengths.",
     "notes": "Unlimited stock. Select the required length and quantity."
@@ -42,9 +42,9 @@
     "categoryLabel": "Communications",
     "price": 5,
     "stock": 3,
-    "image": "assets/kit/communications/talkback-unit.png",
+    "image": "assets/kit/contentf.webp",
     "configurable": false,
-    "description": "Talkback communications unit supplied with headset.",
+    "description": "Talkback communications unit with 8 channels, supplied with headset.",
     "notes": "Appropriate cabling is provided free of charge."
   },
   {
@@ -54,7 +54,7 @@
     "categoryLabel": "Communications",
     "price": 5,
     "stock": 5,
-    "image": "assets/kit/communications/walkie-talkie.png",
+    "image": "assets/kit/communications/walkie-talkie.jpg",
     "configurable": false,
     "description": "Walkie-talkie supplied with earpiece for production and event communications.",
     "notes": ""
@@ -66,9 +66,9 @@
     "categoryLabel": "Event Equipment",
     "price": 50,
     "stock": 1,
-    "image": "assets/kit/event/360-event-camera.png",
+    "image": "assets/kit/event/360-event-camera.jpg",
     "configurable": false,
-    "description": "360° camera setup for events and activations.",
+    "description": "360° camera setup for events and social media videos.",
     "notes": ""
   },
   {
@@ -78,7 +78,7 @@
     "categoryLabel": "Event Equipment",
     "price": 5,
     "stock": 1,
-    "image": "assets/kit/event/smoke-machine.png",
+    "image": "assets/kit/event/smoke-machine.webp",
     "configurable": false,
     "description": "Compact smoke machine for atmospheric effects.",
     "notes": "Venue approval and appropriate safety requirements may apply."
@@ -90,7 +90,7 @@
     "categoryLabel": "Lighting",
     "price": 50,
     "stock": 1,
-    "image": "assets/kit/lighting/eos-console.png",
+    "image": "assets/kit/lighting/eos-console.jpg",
     "configurable": false,
     "description": "ETC Eos lighting console for theatre and live production control.",
     "notes": ""
@@ -102,7 +102,7 @@
     "categoryLabel": "Lighting",
     "price": 20,
     "stock": 6,
-    "image": "assets/kit/lighting/moving-wash.png",
+    "image": "assets/kit/lighting/moving-wash.webp",
     "configurable": false,
     "description": "LED moving wash fixture for theatre, events and live shows.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -114,7 +114,7 @@
     "categoryLabel": "Lighting",
     "price": 15,
     "stock": 2,
-    "image": "assets/kit/lighting/moving-spot.png",
+    "image": "assets/kit/lighting/moving-spot.jpg",
     "configurable": false,
     "description": "Moving spot fixture for beams, effects and dynamic stage looks.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -126,7 +126,7 @@
     "categoryLabel": "Lighting",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/lighting/sacn-node.png",
+    "image": "assets/kit/lighting/sacn-node.jpg",
     "configurable": false,
     "description": "Two-universe sACN to DMX node for networked lighting control.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -138,7 +138,7 @@
     "categoryLabel": "Lighting",
     "price": 5,
     "stock": 1,
-    "image": "assets/kit/lighting/partybar.png",
+    "image": "assets/kit/lighting/micropar.webp",
     "configurable": false,
     "description": "Compact PAR PartyBar system for parties and event lighting.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -150,7 +150,7 @@
     "categoryLabel": "Lighting",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/lighting/led-tape.png",
+    "image": "assets/kit/lighting/pixel-tape/webp",
     "configurable": false,
     "description": "5 metre LED tape kit for scenic, architectural and event applications.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -162,7 +162,7 @@
     "categoryLabel": "Sound",
     "price": 5,
     "stock": 1,
-    "image": "assets/kit/sound/amplifier.png",
+    "image": "assets/kit/sound/amplifier.jpg",
     "configurable": false,
     "description": "Audio power amplifier for passive speaker systems.",
     "notes": ""
@@ -174,7 +174,7 @@
     "categoryLabel": "Sound",
     "price": 5,
     "stock": 4,
-    "image": "assets/kit/sound/passive-speaker.png",
+    "image": "assets/kit/sound/passive-speaker.jpg",
     "configurable": false,
     "description": "Passive analogue loudspeaker for PA and event applications.",
     "notes": ""
@@ -186,7 +186,7 @@
     "categoryLabel": "Sound",
     "price": 40,
     "stock": 1,
-    "image": "assets/kit/sound/x32-compact.png",
+    "image": "assets/kit/sound/x32-compact.jpg",
     "configurable": false,
     "description": "Digital mixing console for live sound and production.",
     "notes": ""
@@ -198,7 +198,7 @@
     "categoryLabel": "Sound",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/sound/debra-pack-system.png",
+    "image": "assets/kit/sound/debra-pack-system.jpg",
     "configurable": false,
     "description": "Wireless microphone pack system for live performance and events.",
     "notes": ""
@@ -210,7 +210,7 @@
     "categoryLabel": "Sound",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/sound/debra-mic-system.png",
+    "image": "assets/kit/sound/debra-mic-system.jpg",
     "configurable": false,
     "description": "Wireless microphone system for live audio applications.",
     "notes": ""
@@ -222,7 +222,7 @@
     "categoryLabel": "Sound",
     "price": 5,
     "stock": 2,
-    "image": "assets/kit/sound/handheld-mics.png",
+    "image": "assets/kit/sound/tonor.webp",
     "configurable": false,
     "description": "Wireless handheld microphones for speeches, performance and events.",
     "notes": ""
@@ -234,7 +234,7 @@
     "categoryLabel": "Staging",
     "price": 20,
     "stock": 1,
-    "image": "assets/kit/staging/black-curtain.png",
+    "image": "assets/kit/staging/backdrop-curtain.jpg",
     "configurable": false,
     "description": "Black curtain backdrop for stage and event spaces.",
     "notes": ""
@@ -246,7 +246,7 @@
     "categoryLabel": "Staging",
     "price": 20,
     "stock": 1,
-    "image": "assets/kit/staging/curtain-pack.png",
+    "image": "assets/kit/staging/black-curtain.jpg",
     "configurable": false,
     "description": "Curtain package for stage presentation and event dressing.",
     "notes": ""
@@ -258,9 +258,9 @@
     "categoryLabel": "Staging",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/staging/staging-deck.png",
+    "image": "assets/kit/staging/staging.jpg",
     "configurable": false,
-    "description": "Modular 2m × 1m staging deck.",
+    "description": "Modular 2m × 1m staging deck with .3m legs.",
     "notes": ""
   },
   {
@@ -270,7 +270,7 @@
     "categoryLabel": "Truss & Rigging",
     "price": 10,
     "stock": 2,
-    "image": "assets/kit/truss-rigging/t-bar.png",
+    "image": "assets/kit/truss-rigging/t-bar.jpg",
     "configurable": false,
     "description": "3 metre T-Bar stand for compact lighting setups.",
     "notes": ""
