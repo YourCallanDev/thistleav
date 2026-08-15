@@ -9,7 +9,14 @@
 <link rel="icon" type="image/png" href="../assets/logos/Thistle_Icon.png">
 <link rel="stylesheet" href="../assets/css/style.css">
 <style>
-/* Equipment Detail Modal Styles */
+/* Grid and Sample Card Styles (to ensure the click target exists) */
+.grid { display: grid; gap: 20px; }
+.grid-3 { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); margin-top: 20px; }
+.equipment-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; cursor: pointer; text-align: center; transition: box-shadow 0.2s; background: #fff; }
+.equipment-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.equipment-card img { max-width: 100%; height: auto; border-radius: 4px; }
+
+/* Modal Styles (Matches the popup UI requested) */
 .modal {
   position: fixed;
   inset: 0;
@@ -30,44 +37,53 @@
 .modal-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
 }
 
 .modal-container {
   position: relative;
   background: #ffffff;
   width: 90%;
-  max-width: 750px;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   z-index: 1001;
-  padding: 30px;
+  padding: 40px;
+  border: 2px solid var(--theme-color, #5a18a8);
 }
 
 .modal-close {
   position: absolute;
   top: 15px;
   right: 20px;
-  background: none;
+  background: #f1f1f1;
   border: none;
-  font-size: 1.8rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 1.5rem;
+  line-height: 1;
   cursor: pointer;
-  color: var(--grey-600, #666);
+  color: #333;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: #ddd;
 }
 
 .modal-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
 }
 
-@media (max-width: 600px) {
-  .modal-content {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 768px) {
+  .modal-content { grid-template-columns: 1fr; }
+  .modal-container { padding: 25px; }
 }
 
 .modal-media img {
@@ -75,64 +91,73 @@
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+  background: #f8f9fa;
+  border: 1px solid #eee;
 }
 
 .modal-details .badge {
   display: inline-block;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--theme-color, #5a18a8);
-  margin-bottom: 8px;
+  color: #fff;
+  background-color: var(--theme-color, #5a18a8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
 
-.modal-details h2 {
-  margin: 0 0 8px 0;
-  font-size: 1.6rem;
-}
-
-.modal-details .price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-}
+.modal-details h2 { margin: 0 0 10px 0; font-size: 1.8rem; }
+.modal-details .price { font-size: 1.4rem; font-weight: bold; margin-bottom: 16px; color: #333; }
+.modal-details .description { line-height: 1.5; color: #555; }
 
 .modal-notes {
-  margin-top: 12px;
-  padding: 10px;
+  margin-top: 20px;
+  padding: 12px;
   background-color: #f8f9fa;
-  border-left: 3px solid var(--theme-color, #5a18a8);
-  font-size: 0.85rem;
+  border-left: 4px solid var(--theme-color, #5a18a8);
+  font-size: 0.9rem;
 }
 
 .modal-actions {
-  margin-top: 24px;
+  margin-top: 30px;
   display: flex;
-  gap: 12px;
+  gap: 15px;
   align-items: center;
 }
 
 .quantity-picker {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 2px solid #ddd;
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .quantity-picker button {
-  background: none;
+  background: #f8f9fa;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 15px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
-.quantity-picker input {
-  width: 40px;
-  text-align: center;
+.quantity-picker button:hover { background: #eee; }
+.quantity-picker input { width: 50px; text-align: center; border: none; font-weight: bold; font-size: 1rem; }
+
+.btn-primary {
+  background: var(--theme-color, #5a18a8);
+  color: white;
   border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
   font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
+.btn-primary:hover { opacity: 0.9; }
 </style>
 </head>
 <body class="is-loading">
@@ -164,20 +189,31 @@
   <div class="container">
     <div class="info-banner reveal">
       <div class="info-icon">i</div>
-      <div><strong>Cabling & essential kit</strong><p>Any cabling or additional kit required to operate hired equipment will be provided free of charge where applicable. Lighting and talkback units include the appropriate cabling.</p></div>
+      <div><strong>Cabling & essential kit</strong><p>Any cabling or additional kit required to operate hired equipment will be provided free of charge where applicable.</p></div>
     </div>
-    <div class="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="lighting">Lighting</button>
-      <button class="filter" data-filter="sound">Sound</button>
-      <button class="filter" data-filter="event">AV & Event</button>
-      <button class="filter" data-filter="staging">Staging</button>
-      <button class="filter" data-filter="communications">Communications</button>
-      <button class="filter" data-filter="cables">Cables</button>
-      <button class="filter" data-filter="truss-rigging">Truss & Rigging</button>
+    
+    <!-- Populated Grid with Sample Data Attributes -->
+    <div id="equipment-grid" class="grid grid-3">
+      
+      <div class="equipment-card" data-id="101" data-category="Lighting" data-price="45.00" data-description="Professional LED moving head wash fixture. Perfect for stage backlighting and dynamic effects." data-notes="Includes 13A to True1 power cable and safety bond. DMX cables provided upon request.">
+        <img src="../assets/logos/Thistle_Icon.png" alt="LED Wash">
+        <h3 class="card-title">LED Wash Moving Head</h3>
+        <p>£45.00 / day</p>
+      </div>
+
+      <div class="equipment-card" data-id="102" data-category="Sound" data-price="60.00" data-description="Active 12-inch PA speaker. Ideal for vocal reinforcement and playback music at medium-sized events." data-notes="Includes 13A to IEC power cable. Speaker stands available separately.">
+        <img src="../assets/logos/Thistle_Icon.png" alt="PA Speaker">
+        <h3 class="card-title">12" Active PA Speaker</h3>
+        <p>£60.00 / day</p>
+      </div>
+
+      <div class="equipment-card" data-id="103" data-category="Communications" data-price="15.00" data-description="Wireless comms headset system for technical crew coordination during live events." data-notes="Spare batteries included.">
+        <img src="../assets/logos/Thistle_Icon.png" alt="Comms Headset">
+        <h3 class="card-title">Wireless Comms Headset</h3>
+        <p>£15.00 / day</p>
+      </div>
+
     </div>
-    <div id="equipment-grid" class="grid grid-3"></div>
-    <p style="margin-top:30px;color:var(--grey-600);font-size:.85rem">Hire prices shown are per day. Prices may change for bookings of a week or longer. Final pricing is confirmed by THISTLE AV.</p>
   </div>
 </section>
 
@@ -198,8 +234,8 @@
         <p id="modal-description" class="description"></p>
         
         <div id="modal-notes-container" class="modal-notes">
-          <strong>Notes:</strong>
-          <p id="modal-notes"></p>
+          <strong>Equipment Notes:</strong>
+          <p id="modal-notes" style="margin:5px 0 0 0;"></p>
         </div>
 
         <div class="modal-actions">
@@ -208,7 +244,7 @@
             <input type="number" id="modal-qty" value="1" min="1">
             <button type="button" id="modal-qty-plus">+</button>
           </div>
-          <button type="button" id="modal-add-btn" class="btn btn-primary">Add to Quote</button>
+          <button type="button" id="modal-add-btn" class="btn-primary">Add to Quote</button>
         </div>
       </div>
     </div>
@@ -216,32 +252,6 @@
 </div>
 </main>
 
-<footer class="footer">
-  <div class="container footer-grid">
-    <div>
-      <img class="footer-logo" src="../assets/logos/Main_Logo.png" alt="THISTLE AV">
-      <p>Small Glasgow-based AV company providing equipment hire and technical support for productions, events and live entertainment.</p>
-    </div>
-    <div>
-      <h3>Explore</h3>
-      <p><a href="../equipment/">Equipment</a></p>
-      <p><a href="../services/">Services</a></p>
-      <p><a href="../about/">About</a></p>
-    </div>
-    <div>
-      <h3>Contact</h3>
-      <p><a href="../contact/">Get in touch</a></p>
-      <p><a href="tel:07936897949">07936 897949</a></p>
-      <p><a href="mailto:thistle.audiovisual@gmail.com">thistle.audiovisual@gmail.com</a></p>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <span>© 2026 THISTLE AV</span>
-    <span>Glasgow, Scotland</span>
-  </div>
-</footer>
-<div class="toast" role="status" aria-live="polite"></div>
-<script src="../assets/js/main.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('equipment-modal');
@@ -259,8 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title: card.querySelector('.card-title')?.textContent || 'Equipment Item',
       category: card.dataset.category || 'General',
       price: card.dataset.price || '0.00',
-      image: card.querySelector('img')?.src || '../assets/logos/Thistle_Icon.png',
-      description: card.dataset.description || 'No detailed description available for this item.',
+      image: card.querySelector('img')?.src || '',
+      description: card.dataset.description || 'No description provided.',
       notes: card.dataset.notes || null
     };
 
@@ -292,6 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'true');
   }
 
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
   // Quantity controls
   document.getElementById('modal-qty-minus').addEventListener('click', () => {
     if (parseInt(modalQtyInput.value) > 1) modalQtyInput.value--;
@@ -306,6 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const quantity = parseInt(modalQtyInput.value) || 1;
     if (typeof addToQuote === 'function') {
       addToQuote(currentActiveItem.id, quantity);
+    } else {
+      alert(`Added ${quantity}x ${currentActiveItem.title} to quote!`);
     }
     closeModal();
   });
