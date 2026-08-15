@@ -6,7 +6,7 @@
     "categoryLabel": "Cables",
     "price": 1.5,
     "stock": null,
-    "image": "assets/kit/cables/1_4-jack.jpg",
+    "image": "assets/kit/cables/1_4 jack.jpg",
     "configurable": true,
     "description": "Flexible jack/AUX cabling for audio connections.",
     "notes": "Unlimited stock. Select the required length and quantity."
@@ -30,7 +30,7 @@
     "categoryLabel": "Cables",
     "price": 1.5,
     "stock": null,
-    "image": "assets/kit/cables/xlr-cable.jpg",
+    "image": "assets/kit/cables/xlrjpg",
     "configurable": true,
     "description": "Standard XLR audio cable available in a range of lengths.",
     "notes": "Unlimited stock. Select the required length and quantity."
@@ -42,7 +42,7 @@
     "categoryLabel": "Communications",
     "price": 5,
     "stock": 3,
-    "image": "assets/kit/contentf.webp",
+    "image": "",
     "configurable": false,
     "description": "Talkback communications unit with 8 channels, supplied with headset.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -138,7 +138,7 @@
     "categoryLabel": "Lighting",
     "price": 5,
     "stock": 1,
-    "image": "assets/kit/lighting/micropar.webp",
+    "image": "assets/kit/lighting/MicroPar.webp",
     "configurable": false,
     "description": "Compact PAR PartyBar system for parties and event lighting.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -150,7 +150,7 @@
     "categoryLabel": "Lighting",
     "price": 10,
     "stock": 1,
-    "image": "assets/kit/lighting/pixel-tape/webp",
+    "image": "assets/kit/lighting/pixel-tape.webp",
     "configurable": false,
     "description": "5 metre LED tape kit for scenic, architectural and event applications.",
     "notes": "Appropriate cabling is provided free of charge."
@@ -186,7 +186,7 @@
     "categoryLabel": "Sound",
     "price": 40,
     "stock": 1,
-    "image": "assets/kit/sound/x32-compact.jpg",
+    "image": "assets/kit/sound/x32compact.jpg",
     "configurable": false,
     "description": "Digital mixing console for live sound and production.",
     "notes": ""
