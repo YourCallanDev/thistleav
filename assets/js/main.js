@@ -1,5 +1,5 @@
 
-const DATA_URL = "/data/equipment.json";
+const DATA_URL = "../data/equipment.json";
 const QUOTE_KEY = "thistleQuoteV2";
 
 const money = value => `£${Number(value).toFixed(2).replace(".00","")}`;
@@ -76,7 +76,7 @@ function removeQuoteItem(key) {
 function renderProductCard(product) {
   const safeId = product.id.replace(/[^a-zA-Z0-9_-]/g, "");
   const media = `<div class="product-media">
-    <img src="/${product.image}" alt="${product.name}" loading="lazy"
+    <img src="../${product.image}" alt="${product.name}" loading="lazy"
       onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
     <div class="product-placeholder" style="display:none">PHOTO</div>
   </div>`;
@@ -198,7 +198,7 @@ function renderQuote() {
   if (!list) return;
   const quote = getQuote();
   if (!quote.length) {
-    list.innerHTML = `<div class="quote-empty">Your quote is currently empty. <a class="text-link" href="/equipment/">Browse equipment →</a></div>`;
+    list.innerHTML = `<div class="quote-empty">Your quote is currently empty. <a class="text-link" href="../equipment/">Browse equipment →</a></div>`;
   } else {
     list.innerHTML = quote.map(item => `
       <div class="quote-item">
@@ -243,10 +243,17 @@ function setupNav() {
   const menu = document.querySelector(".menu-btn");
   const nav = document.querySelector(".nav-links");
   if (menu && nav) menu.addEventListener("click", () => nav.classList.toggle("open"));
-  const path = window.location.pathname.replace(/\/+$/,"") || "/";
+
+  const normalizePath = value => value.replace(/\/+$/, "") || "/";
+  const path = normalizePath(window.location.pathname);
+
   document.querySelectorAll("[data-nav]").forEach(link => {
-    const target = link.getAttribute("href").replace(/\/+$/,"") || "/";
-    if (target === path || (target !== "/" && path.startsWith(target))) link.classList.add("active");
+    const href = link.getAttribute("href");
+    if (!href) return;
+    const target = normalizePath(new URL(href, window.location.href).pathname);
+    if (target === path || (target !== "/" && path.startsWith(target + "/"))) {
+      link.classList.add("active");
+    }
   });
 }
 
