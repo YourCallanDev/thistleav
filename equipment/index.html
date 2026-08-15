@@ -8,6 +8,132 @@
 <title>Equipment | THISTLE AV</title>
 <link rel="icon" type="image/png" href="../assets/logos/Thistle_Icon.png">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* Equipment Detail Modal Styles */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.modal-container {
+  position: relative;
+  background: #ffffff;
+  width: 90%;
+  max-width: 750px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  padding: 30px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--grey-600, #666);
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.modal-details .badge {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--theme-color, #5a18a8);
+  margin-bottom: 8px;
+}
+
+.modal-details h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+}
+
+.modal-details .price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.modal-notes {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-left: 3px solid var(--theme-color, #5a18a8);
+  font-size: 0.85rem;
+}
+
+.modal-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.quantity-picker {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.quantity-picker button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.quantity-picker input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+}
+</style>
 </head>
 <body class="is-loading">
 <div class="site-loader" aria-hidden="true"><img class="loader-mark" src="../assets/logos/Thistle_Icon.png" alt=""></div>
@@ -54,6 +180,40 @@
     <p style="margin-top:30px;color:var(--grey-600);font-size:.85rem">Hire prices shown are per day. Prices may change for bookings of a week or longer. Final pricing is confirmed by THISTLE AV.</p>
   </div>
 </section>
+
+<!-- Equipment Details Modal -->
+<div id="equipment-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+  <div class="modal-overlay" data-close-modal></div>
+  <div class="modal-container">
+    <button class="modal-close" data-close-modal aria-label="Close modal">&times;</button>
+    <div class="modal-content">
+      <div class="modal-media">
+        <img id="modal-image" src="" alt="">
+      </div>
+      <div class="modal-details">
+        <span id="modal-category" class="badge">Category</span>
+        <h2 id="modal-title">Item Name</h2>
+        <div id="modal-price" class="price">£0.00 / day</div>
+        
+        <p id="modal-description" class="description"></p>
+        
+        <div id="modal-notes-container" class="modal-notes">
+          <strong>Notes:</strong>
+          <p id="modal-notes"></p>
+        </div>
+
+        <div class="modal-actions">
+          <div class="quantity-picker">
+            <button type="button" id="modal-qty-minus">-</button>
+            <input type="number" id="modal-qty" value="1" min="1">
+            <button type="button" id="modal-qty-plus">+</button>
+          </div>
+          <button type="button" id="modal-add-btn" class="btn btn-primary">Add to Quote</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </main>
 
 <footer class="footer">
@@ -82,5 +242,74 @@
 </footer>
 <div class="toast" role="status" aria-live="polite"></div>
 <script src="../assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('equipment-modal');
+  const closeBtns = document.querySelectorAll('[data-close-modal]');
+  const modalQtyInput = document.getElementById('modal-qty');
+  let currentActiveItem = null;
+
+  // Open modal when clicking any equipment card in the grid
+  document.getElementById('equipment-grid').addEventListener('click', (e) => {
+    const card = e.target.closest('.equipment-card');
+    if (!card) return;
+
+    currentActiveItem = {
+      id: card.dataset.id,
+      title: card.querySelector('.card-title')?.textContent || 'Equipment Item',
+      category: card.dataset.category || 'General',
+      price: card.dataset.price || '0.00',
+      image: card.querySelector('img')?.src || '../assets/logos/Thistle_Icon.png',
+      description: card.dataset.description || 'No detailed description available for this item.',
+      notes: card.dataset.notes || null
+    };
+
+    document.getElementById('modal-title').textContent = currentActiveItem.title;
+    document.getElementById('modal-category').textContent = currentActiveItem.category;
+    document.getElementById('modal-price').textContent = `£${currentActiveItem.price} / day`;
+    document.getElementById('modal-image').src = currentActiveItem.image;
+    document.getElementById('modal-image').alt = currentActiveItem.title;
+    document.getElementById('modal-description').textContent = currentActiveItem.description;
+
+    const notesContainer = document.getElementById('modal-notes-container');
+    if (currentActiveItem.notes) {
+      document.getElementById('modal-notes').textContent = currentActiveItem.notes;
+      notesContainer.style.display = 'block';
+    } else {
+      notesContainer.style.display = 'none';
+    }
+
+    modalQtyInput.value = 1;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  });
+
+  // Close modal controls
+  closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  // Quantity controls
+  document.getElementById('modal-qty-minus').addEventListener('click', () => {
+    if (parseInt(modalQtyInput.value) > 1) modalQtyInput.value--;
+  });
+
+  document.getElementById('modal-qty-plus').addEventListener('click', () => {
+    modalQtyInput.value++;
+  });
+
+  // Add to Quote integration
+  document.getElementById('modal-add-btn').addEventListener('click', () => {
+    const quantity = parseInt(modalQtyInput.value) || 1;
+    if (typeof addToQuote === 'function') {
+      addToQuote(currentActiveItem.id, quantity);
+    }
+    closeModal();
+  });
+});
+</script>
 </body>
 </html>
