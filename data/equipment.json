@@ -132,6 +132,18 @@
     "notes": "Appropriate cabling is provided free of charge."
   },
   {
+    "id": "magicdmx-basic",
+    "name": "Chamsys Basic Magic DMX",
+    "category": "lighting",
+    "categoryLabel": "Lighting",
+    "price": 5,
+    "stock": 1,
+    "image": "assets/kit/lighting/chamsys-magicdmx.jpg",
+    "configurable": false,
+    "description": "Chamsys Basic MagicDMX provided with a carrypouch. Works with all Chamsys software.",
+    "notes": "Appropriate cabling is provided free of charge."
+  },
+  {
     "id": "partybar",
     "name": "Equinox PAR PartyBar System",
     "category": "lighting",
